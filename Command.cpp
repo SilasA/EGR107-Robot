@@ -1,23 +1,31 @@
 #include "Command.h"
 
 // Static
-std::stack<Command*> Command::schedule;
+node_t *Command::top;
 
 static void Command::Push(Command *cmd)
 {
-  schedule.push(cmd);
+  node_t *node = new node_t();
+  node->command = cmd;
+  if (top)
+    node->next = top;
+  else node->next = nullptr;
+  top = node;
+  changed = true;
 }
 
 static Command* Command::Peek()
 {
-  return schedule.top();
+  return top->command;
 }
 
 static void Command::Pop()
 {
-  schedule.top()->End();
-  delete schedule.top();
-  schedule.pop();
+  node_t *next = top->next;
+  delete top->command;
+  delete top;
+  top = next;
+  changed = true;
 }
 
 static void RunScheduler()
@@ -25,10 +33,10 @@ static void RunScheduler()
   if (changed)
   {
     changed = false;
-    if (schedule.top())
-      schedule.top()->Init();
+    if (top)
+      top->command->Init();
   }
 
-  if (schedule.top())
-    schedule.top()->Run()
+  if (top)
+    top->command->Run()
 }

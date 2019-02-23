@@ -3,10 +3,17 @@
 
 #include <stack>
 
+//
+struct node_t {
+    Command *command;
+    node_t *next;
+};
+
+//
 class Command
 {
 private:
-  static std::stack<Command*> schedule;
+  static node_t *top;
   static bool changed;
 
 public:
