@@ -8,11 +8,12 @@ DriveTriangle::DriveTriangle()
 void DriveTriangle::Init()
 {
 
+
 }
 
 void DriveTriangle::Run()
 {
-
+  return;
 }
 
 bool DriveTriangle::Finished()

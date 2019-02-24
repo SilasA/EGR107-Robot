@@ -7,11 +7,13 @@ private:
   bool m_isDistance;
   float m_value;
   float m_ramp;
+  long m_duration;
 
+  unsigned long m_startTime;
   float m_currentValue;
 
 public:
-  Drive(float value, bool isDistance = false);
+  Drive(float value, float ramp, long duration, bool isDistance = false);
   void Init();
   void Run();
   bool Finished();

@@ -16,6 +16,6 @@
 #define SONAR_FRONT_ECHO
 
 // Constants
-#define P
-#define I
-#define D
+#define P 1.0
+#define I 0.0
+#define D 0.0

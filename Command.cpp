@@ -23,6 +23,12 @@ static void Command::Push(Command *cmd)
   }
 }
 
+// static
+DriveTrain Command::driveTrain{ "Drive Train",
+  LEFT_PIN, LEFT_HB1, LEFT_HB2,
+  RIGHT_PIN, RIGHT_HB1, RIGHT_HB2
+};
+
 static Command* Command::Peek()
 {
   return Command::front->cmd;

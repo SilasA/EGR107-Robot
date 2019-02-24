@@ -43,7 +43,9 @@ public:
   // Called when command is finished
   virtual void End();
 
-  // Static methods
+  // Static Members/methods
+  // Subsystems
+  static DriveTrain driveTrain;
 
   // Pushes a new command to the schedule
   static void Push(Command *cmd);
