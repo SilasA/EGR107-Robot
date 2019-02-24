@@ -1,13 +1,21 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include <stack>
+class Command;
+
+// Node for Command Queue
+struct node_t {
+  Command *cmd;
+  node_t *next;
+  node_t *prev;
+}
 
 class Command
 {
 private:
-  static std::stack<Command*> schedule;
-  static bool changed;
+  static node_t *front;
+  static node_t *back;
+  bool changed;
 
 public:
   // Constructor
