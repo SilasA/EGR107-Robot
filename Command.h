@@ -10,12 +10,24 @@ struct node_t {
   node_t *prev;
 }
 
+//
+struct node_t {
+    Command *command;
+    node_t *next;
+};
+
+//
 class Command
 {
 private:
+<<<<<<< HEAD
   static node_t *front;
   static node_t *back;
   bool changed;
+=======
+  static node_t *top;
+  static bool changed;
+>>>>>>> ab5c6d99b22e6063de19f276e7b0c5ad90492987
 
 public:
   // Constructor
