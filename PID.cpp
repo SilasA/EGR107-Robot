@@ -1,4 +1,5 @@
 #include "PID.h"
+#include "Arduino.h"
 
 PID::PID(float kp, float ki, float kd, float max, float min)
 {
@@ -13,7 +14,7 @@ PID::PID(float kp, float ki, float kd, float max, float min)
 }
 
 PID::PID(float kp, float ki, float kd) :
-  PID(kp, ki, kd, 100, -100);
+  PID(kp, ki, kd, 100, -100)
 {
 }
 

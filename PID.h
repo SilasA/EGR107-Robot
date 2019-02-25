@@ -24,6 +24,6 @@ public:
   void ResetIAccum();
 
   float Run(float input, float setpoint);
-}
+};
 
 #endif // PID_H

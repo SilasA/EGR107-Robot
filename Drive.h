@@ -1,5 +1,7 @@
 #ifndef DRIVE_H
-#ifndef DRIVE_H
+#define DRIVE_H
+
+#include "Command.h"
 
 class Drive : public Command
 {
@@ -13,7 +15,7 @@ private:
   float m_currentValue;
 
 public:
-  Drive(float value, float ramp, long duration, bool isDistance = false);
+  Drive(float value, float ramp, unsigned long duration, bool isDistance = false);
   void Init();
   void Run();
   bool Finished();

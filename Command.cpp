@@ -1,12 +1,22 @@
 #include "Command.h"
+#include "Constants.h"
 
 // Static
 node_t *Command::front;
 node_t *Command::back;
 
-static void Command::Push(Command *cmd)
+bool Command::changed = true;
+
+Command::Command()
 {
-  changed = true;
+}
+
+// static
+DriveTrain Command::driveTrain = DriveTrain("Drive Train", LEFT_PIN, LEFT_HB1, LEFT_HB2, RIGHT_PIN, RIGHT_HB1, RIGHT_HB2);
+
+void Command::Push(Command *cmd)
+{
+  Command::changed = true;
   node_t *temp = new node_t();
   temp->cmd = cmd;
   temp->next = nullptr;
@@ -23,41 +33,35 @@ static void Command::Push(Command *cmd)
   }
 }
 
-// static
-DriveTrain Command::driveTrain{ "Drive Train",
-  LEFT_PIN, LEFT_HB1, LEFT_HB2,
-  RIGHT_PIN, RIGHT_HB1, RIGHT_HB2
-};
-
-static Command* Command::Peek()
+Command* Command::Peek()
 {
   return Command::front->cmd;
 }
 
-static void Command::Pop()
+void Command::Pop()
 {
-  changed = true;
+  Command::changed = true;
   Command::front->cmd->End();
-  node_t *temp = Command::front->next
+  node_t *temp = Command::front->next;
   delete Command::front->cmd;
-  delete Command::front
+  delete Command::front;
   Command::front = temp;
 }
 
-static void RunScheduler()
+void Command::RunScheduler()
 {
   if (Command::front->cmd->Finished())
   {
     Pop();
   }
 
-  if (changed)
+  if (Command::changed)
   {
-    changed = false;
+    Command::changed = false;
     if (Command::front)
       Command::front->cmd->Init();
   }
 
   if (Command::front)
-    Command::front->cmd->Run()
+    Command::front->cmd->Run();
 }

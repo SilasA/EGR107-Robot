@@ -17,9 +17,7 @@ private:
   void set_direction(int hb1, int hb2, int direction);
 
 public:
-  DriveTrain(char *name,
-    int lpin, int lhb1, int lhb2,
-    int rpin, int rhb1, int rhb2);
+  DriveTrain(const char *name, int lpin, int lhb1, int lhb2, int rpin, int rhb1, int rhb2);
   void Drive(float left, float right);
 };
 

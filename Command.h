@@ -1,6 +1,9 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+#include "Arduino.h"
+#include "DriveTrain.h"
+
 class Command;
 
 // Node for Command Queue
@@ -8,23 +11,18 @@ struct node_t {
   Command *cmd;
   node_t *next;
   node_t *prev;
-}
-
-//
-struct node_t {
-    Command *command;
-    node_t *next;
 };
 
 //
 class Command
 {
 private:
-  static node_t *front;
-  static node_t *back;
-  bool changed;
+  static bool changed;
 
 public:
+  static node_t *front;
+  static node_t *back;
+
   // Constructor
   Command();
 
@@ -43,8 +41,8 @@ public:
   // Called when command is finished
   virtual void End();
 
-  // Static Members/methods
-  // Subsystems
+  // Static methods/members
+
   static DriveTrain driveTrain;
 
   // Pushes a new command to the schedule
@@ -60,3 +58,5 @@ public:
   // Called every loop in main
   static void RunScheduler();
 };
+
+#endif // COMMAND_H

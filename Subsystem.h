@@ -1,18 +1,20 @@
 #ifndef SUBSYSTEM_H
 #define SUBSYSTEM_H
 
+#include "Arduino.h"
+
 //
 class Subsystem
 {
 private:
-  char *m_name;
+  const char *m_name;
 
 public:
-  Subsystem(char *name)
+  Subsystem(const char *name)
   {
     m_name = name;
   }
-  char *GetName() { return m_name; }
+  const char *GetName() { return m_name; }
 };
 
 #endif // SUBSYSTEM_H

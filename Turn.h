@@ -9,7 +9,7 @@ private:
   float m_speed;
 
   long m_duration;
-  unsigned long startTime;
+  unsigned long m_startTime;
 
 public:
   Turn(float speed, long duration);
@@ -18,6 +18,6 @@ public:
   void Run();
   bool Finished();
   void End();
-}
+};
 
 #endif // TURN_H

@@ -23,7 +23,8 @@ void Drive::Run()
     m_currentValue = m_value;
   else if (m_currentValue < 0)
     m_currentValue = 0;
-  Command::driveTrain.Drive(m_currentValue, m_currentValue);
+  Serial.println(m_currentValue);
+  Command::driveTrain.Drive(m_currentValue / 255.0, m_currentValue / 255.0);
 }
 
 bool Drive::Finished()
@@ -34,4 +35,5 @@ bool Drive::Finished()
 void Drive::End()
 {
   Command::driveTrain.Drive(0, 0);
+  Serial.println("End");
 }
