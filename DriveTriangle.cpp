@@ -9,12 +9,12 @@ DriveTriangle::DriveTriangle()
 
 void DriveTriangle::Init()
 {
-  Command::Push(new Drive(100, 5, 3000));
-  Command::Push(new Turn(100, 1)); // Duration tbd
-  Command::Push(new Drive(100, 5, 3000));
-  Command::Push(new Turn(100, 1)); // Duration tbd
-  Command::Push(new Drive(100, 5, 3000));
-  Command::Push(new Turn(100, 1)); // Duration tbd
+  Command::Push(new Drive(150, 2, 5000));
+  Command::Push(new Turn(250, 1000)); // Duration tbd
+  Command::Push(new Drive(150, 2, 5000));
+  Command::Push(new Turn(250, 1000)); // Duration tbd
+  Command::Push(new Drive(150, 2, 5000));
+  Command::Push(new Turn(250, 1000)); // Duration tbd
 }
 
 void DriveTriangle::Run()

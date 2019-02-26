@@ -9,6 +9,7 @@ Turn::Turn(float speed, long duration)
 void Turn::Init()
 {
   m_startTime = millis();
+  Serial.println("Turning");
 }
 
 void Turn::Run()

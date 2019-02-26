@@ -16,21 +16,19 @@ DriveTrain Command::driveTrain = DriveTrain("Drive Train", LEFT_PIN, LEFT_HB1, L
 
 void Command::Push(Command *cmd)
 {
+  //Serial.println("Pushed");
   Command::changed = true;
   node_t *temp = new node_t();
   temp->cmd = cmd;
-  temp->next = nullptr;
-  temp->prev = Command::back;
-
-  if (Command::back)
-  {
-    Command::back->next = temp;
-  }
+  
+  if (Command::front == nullptr)
+    back = front = temp;
   else
   {
-    Command::back = temp;
-    Command::front = temp;
-  }
+    temp->prev = back;
+    back->next = temp;
+    back = temp;
+  }  
 }
 
 Command* Command::Peek()
@@ -40,23 +38,27 @@ Command* Command::Peek()
 
 void Command::Pop()
 {
+  //Serial.println("Popped");
+  if (front == nullptr) return;
   Command::changed = true;
   Command::front->cmd->End();
-  node_t *temp = Command::front->next;
-  delete Command::front->cmd;
-  delete Command::front;
-  Command::front = temp;
+  
+  node_t *temp = Command::front;
+  front = front->next;
+
+  if (front == nullptr)
+    back = nullptr;
+  else
+    front->prev = nullptr;
+  delete temp;
+  //Serial.println(Command::front->next != nullptr);
 }
 
 void Command::RunScheduler()
 {
-  if (Command::front->cmd->Finished())
-  {
-    Pop();
-  }
-
   if (Command::changed)
   {
+    Serial.println("Initialized");
     Command::changed = false;
     if (Command::front)
       Command::front->cmd->Init();
@@ -64,4 +66,10 @@ void Command::RunScheduler()
 
   if (Command::front)
     Command::front->cmd->Run();
+
+   if (Command::front->cmd->Finished())
+  {
+    Serial.println("Finished");
+    Pop();
+  }
 }

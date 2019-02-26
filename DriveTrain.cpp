@@ -4,13 +4,13 @@ void DriveTrain::set_direction(int hb1, int hb2, int direction)
 {
   if (direction > 0) // Forwards
   {
-    digitalWrite(hb1, HIGH);
-    digitalWrite(hb2, LOW);
+    digitalWrite(hb1, LOW);
+    digitalWrite(hb2, HIGH);
   }
   else // Reverse
   {
-    digitalWrite(hb1, LOW);
-    digitalWrite(hb2, HIGH);
+    digitalWrite(hb1, HIGH);
+    digitalWrite(hb2, LOW);
   }
 }
 

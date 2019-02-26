@@ -14,16 +14,20 @@ void Drive::Init()
 {
   m_currentValue = 0;
   m_startTime = millis();
+  Serial.println(m_startTime);
 }
 
 void Drive::Run()
 {
-  m_currentValue += m_startTime + m_duration - 500 <= millis() ? m_ramp : -m_ramp;
+  float v = m_ramp; //(m_startTime + m_duration - 500 <= millis() ? m_ramp : -m_ramp);
+  Serial.println(v);
+  m_currentValue += v;
   if (m_currentValue > m_value)
     m_currentValue = m_value;
   else if (m_currentValue < 0)
     m_currentValue = 0;
   Serial.println(m_currentValue);
+  Serial.flush();
   Command::driveTrain.Drive(m_currentValue / 255.0, m_currentValue / 255.0);
 }
 
@@ -35,5 +39,5 @@ bool Drive::Finished()
 void Drive::End()
 {
   Command::driveTrain.Drive(0, 0);
-  Serial.println("End");
+  //Serial.println("End");
 }
