@@ -14,13 +14,14 @@ Command::Command()
 // static
 DriveTrain Command::driveTrain = DriveTrain("Drive Train", LEFT_PIN, LEFT_HB1, LEFT_HB2, RIGHT_PIN, RIGHT_HB1, RIGHT_HB2);
 
+
 void Command::Push(Command *cmd)
 {
   //Serial.println("Pushed");
   Command::changed = true;
   node_t *temp = new node_t();
   temp->cmd = cmd;
-  
+
   if (Command::front == nullptr)
     back = front = temp;
   else
@@ -28,7 +29,7 @@ void Command::Push(Command *cmd)
     temp->prev = back;
     back->next = temp;
     back = temp;
-  }  
+  }
 }
 
 Command* Command::Peek()
@@ -42,7 +43,7 @@ void Command::Pop()
   if (front == nullptr) return;
   Command::changed = true;
   Command::front->cmd->End();
-  
+
   node_t *temp = Command::front;
   front = front->next;
 

@@ -35,6 +35,11 @@ DriveTrain::DriveTrain(const char *name,
   pinMode(m_rhb2, OUTPUT);
 }
 
+float DriveTrain::max(float a, float b)
+{
+  return a > b ? a : b;
+}
+
 void DriveTrain::Drive(float left, float right)
 {
   set_direction(m_lhb1, m_lhb2, left);
@@ -42,4 +47,51 @@ void DriveTrain::Drive(float left, float right)
 
   analogWrite(m_lpin, left * 255);
   analogWrite(m_rpin, right * 255);
+}
+
+void DriveTrain::ArcadeDrive(float drive, float rotate)
+{
+  float loutput;
+  float routput;
+
+  if (drive > 0.0)
+  {
+    if (rotate > 0.0)
+    {
+      loutput = drive - rotate;
+      routput = max(drive, rotate);
+    }
+    else
+    {
+      loutput = -max(-drive, rotate);
+      routput = move + rotate;
+    }
+  }
+  else
+  {
+    if (rotate > 0.0)
+    {
+      loutput = -max(-move, rotate);
+      routput = move + rotate;
+    }
+    else
+    {
+      loutput = move - rotate;
+      routput = -max(-move, -rotate);
+    }
+  }
+
+  Drive(louput, routput);
+}
+
+int GetLeftDistance()
+{
+  // Maybe convert to units
+  return m_leftEnc.read();
+}
+
+int GetRightDistance()
+{
+  // Maybe convert to units
+  return m_rightEnc.read();
 }
