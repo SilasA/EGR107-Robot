@@ -11,7 +11,7 @@ FollowWall::FollowWall(float distance) :
 
 void FollowWall::Init()
 {
-    m_pid = new PID(P, I, D, 200, -200);
+    m_pid = new PID(P, I, D, 100, -100);
     m_isLeftWall = m_sensors->GetLeftFilter() < m_sensors->GetRightFilter();
 }
 

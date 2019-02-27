@@ -1,0 +1,6 @@
+RED    - M1-
+BLACK  - GND ENC
+YELLOW - ENC A
+GREEN  - ENC B
+BLUE   - 3.3V
+WHITE  - M1+

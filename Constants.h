@@ -15,12 +15,14 @@
 #define IR_BEACON A3
 #define SONAR_FRONT_TRIG 12
 #define SONAR_FRONT_ECHO 13
-#define ENC_LEFT_A 2
-#define ENC_LEFT_B 4
-#define ENC_RIGHT_A 3
-#define ENC_RIGHT_B 7
+#define ENC_LEFT_A 3
+#define ENC_LEFT_B 7
+#define ENC_RIGHT_A 2
+#define ENC_RIGHT_B 4
 
 // Constants
 #define P 1.0
 #define I 0.0
 #define D 0.0
+
+#define COUNTS_PER_REV 
