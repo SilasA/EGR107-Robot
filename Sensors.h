@@ -15,6 +15,10 @@ private:
   NewPing m_ballSonar;
 
 public:
+  // ~40 degrees 5.4" from floor ball width average 1.625"
+  const float kNormalDistance = 7.05;
+  const float kBallDistance = 7.05 - 2.0;
+
   Sensors(const char *name, int irLeft, int irRight, int sonarTrig, int sonarEcho);
 
   // Implement filters
