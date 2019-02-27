@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include "DriveTrain.h"
+#include "Sensors.h"
 
 class Command;
 
@@ -44,6 +45,7 @@ public:
   // Static methods/members
 
   static DriveTrain driveTrain;
+  static Sensors sensors;
 
   // Pushes a new command to the schedule
   static void Push(Command *cmd);

@@ -16,7 +16,10 @@ void DriveTrain::set_direction(int hb1, int hb2, int direction)
 
 DriveTrain::DriveTrain(const char *name,
   int lpin, int lhb1, int lhb2,
-  int rpin, int rhb1, int rhb2) :
+  int rpin, int rhb1, int rhb2,
+  int leftEncA, int leftEncB,
+  int rightEncA, int rightEncB) :
+  m_leftEnc(leftEncA, leftEncB), m_rightEnc(rightEncA, rightEncB),
   Subsystem(name)
 {
   m_lpin = lpin;
@@ -35,15 +38,18 @@ DriveTrain::DriveTrain(const char *name,
   pinMode(m_rhb2, OUTPUT);
 }
 
-float DriveTrain::max(float a, float b)
+/*float DriveTrain::max(float a, float b)
 {
   return a > b ? a : b;
-}
+}*/
 
 void DriveTrain::Drive(float left, float right)
 {
   set_direction(m_lhb1, m_lhb2, left);
   set_direction(m_rhb1, m_rhb2, right);
+
+  m_leftOutput = left;
+  m_rightOutput = right;
 
   analogWrite(m_lpin, left * 255);
   analogWrite(m_rpin, right * 255);
@@ -64,34 +70,46 @@ void DriveTrain::ArcadeDrive(float drive, float rotate)
     else
     {
       loutput = -max(-drive, rotate);
-      routput = move + rotate;
+      routput = drive + rotate;
     }
   }
   else
   {
     if (rotate > 0.0)
     {
-      loutput = -max(-move, rotate);
-      routput = move + rotate;
+      loutput = -max(-drive, rotate);
+      routput = drive + rotate;
     }
     else
     {
-      loutput = move - rotate;
-      routput = -max(-move, -rotate);
+      loutput = drive - rotate;
+      routput = -max(-drive, -rotate);
     }
   }
 
-  Drive(louput, routput);
+  Drive(loutput, routput);
 }
 
-int GetLeftDistance()
+int DriveTrain::GetLeftDistance()
 {
   // Maybe convert to units
   return m_leftEnc.read();
 }
 
-int GetRightDistance()
+int DriveTrain::GetRightDistance()
 {
   // Maybe convert to units
   return m_rightEnc.read();
+}
+
+bool DriveTrain::IsStalled()
+{
+  int leftd = m_leftEnc.read() - m_leftPosition;
+  int rightd = m_rightEnc.read() - m_rightPosition;
+
+  m_leftPosition = m_leftEnc.read();
+  m_rightPosition = m_rightEnc.read();
+
+  return m_leftOutput != 0.0 && leftd
+    || m_rightOutput != 0.0 && rightd;
 }

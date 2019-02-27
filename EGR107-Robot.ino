@@ -1,12 +1,10 @@
 #include "Command.h"
 #include "Constants.h"
-#include "Drive.h"
-#include "DriveTriangle.h"
-#include "Turn.h".
+#include "FollowWall.h"
 
 void setup() {
   // put your setup code here, to run once:
-  Command::Push(new DriveTriangle());
+  Command::Push(new FollowWall(1000));
   Serial.begin(9600);
   Serial.println("Restarting");
 }

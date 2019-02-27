@@ -14,6 +14,8 @@ private:
   float m_maxOut;
   float m_minOut;
 
+  //float abs(float val);
+
 public:
   PID(float kp, float ki, float kd, float max, float min);
   PID(float kp, float ki, float kd);

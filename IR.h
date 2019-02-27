@@ -12,10 +12,10 @@ private:
 public:
   IR(int pin)
   {
-    m_pin = pin
+    m_pin = pin;
   }
 
   float GetDistance() { return 6787 / (analogRead(m_pin) - 3) - 4; }
-}
+};
 
 #endif // IR_H

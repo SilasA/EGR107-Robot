@@ -18,8 +18,14 @@ private:
   Encoder m_leftEnc;
   Encoder m_rightEnc;
 
+  float m_leftOutput;
+  float m_rightOutput;
+
+  int m_leftPosition;
+  int m_rightPosition;
+
   void set_direction(int hb1, int hb2, int direction);
-  float max(float a, float b);
+  //float max(float a, float b);
 
 public:
   DriveTrain(const char *name, int lpin, int lhb1, int lhb2,
@@ -32,6 +38,8 @@ public:
 
   int GetLeftDistance();
   int GetRightDistance();
+
+  bool IsStalled();
 };
 
 #endif // DRIVE_TRAIN_H
