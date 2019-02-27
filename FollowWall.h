@@ -13,7 +13,10 @@ private:
     PID *m_pid;
     float m_distance;
 
-    bool m_isLeftWall;
+    float m_lastDistanceFromWall;
+
+    bool m_isLeftWall = false;
+    bool m_foundGoal = false;
 
 public:
     FollowWall(float distance);

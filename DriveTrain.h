@@ -3,6 +3,7 @@
 
 #include "Subsystem.h"
 #include "Encoder.h"
+#include "Servo.h"
 
 //
 class DriveTrain : public Subsystem

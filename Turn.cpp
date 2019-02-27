@@ -1,9 +1,9 @@
 #include "Turn.h"
 
-Turn::Turn(float speed, long duration)
+Turn::Turn(int dist)
 {
-  m_speed = speed;
-  m_duration = duration;
+  m_displacement = dist;
+  m_drive = &Command::driveTrain;
 }
 
 void Turn::Init()
@@ -14,12 +14,13 @@ void Turn::Init()
 
 void Turn::Run()
 {
-  Command::driveTrain.Drive(-m_speed / 2, m_speed / 2);
+  Command::driveTrain.Drive(-.2, .2);
 }
 
 bool Turn::Finished()
 {
-  return m_startTime + m_duration <= millis();
+  return abs(m_displacement - m_drive->GetLeftDistance()) < 10 ||
+      abs(-m_displacement - m_drive->GetRightDistance()) < 10;
 }
 
 void Turn::End()

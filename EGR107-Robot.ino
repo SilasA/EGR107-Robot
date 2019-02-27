@@ -13,5 +13,10 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  if (*(Command::front) == nullptr)
+  {
+    Command::Push(new FollowWall(2500));
+  }
+
   Command::RunScheduler();
 }
