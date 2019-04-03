@@ -8,11 +8,11 @@ float get_average(float *array, int size)
     return avg / size;
 }
 
-Sensors::Sensors(const char *name, int irLeft, int irRight, int irBeacon,
+Sensors::Sensors(const char *name, int irLeft, int irRight, int irFront, int irBeacon,
                  int sonarTrig, int sonarEcho) :
-                 Subsystem(name), m_left(irLeft), m_right(irRight), m_beaconLocator(irBeacon),
-                 m_ballSonar(sonarTrig, sonarEcho), m_ballFilter(5),
-                 m_leftFilter(10), m_rightFilter(10)
+                 Subsystem(name), m_left(irLeft), m_right(irRight), m_front(irFront),
+                 m_beaconLocator(irBeacon), m_ballSonar(sonarTrig, sonarEcho),
+                 m_ballFilter(5), m_frontFilter(10), m_leftFilter(10), m_rightFilter(10)
 {
 
 }
@@ -29,6 +29,12 @@ float Sensors::GetRight()
   return m_right.GetDistance();
 }
 
+float Sensors::GetFront()
+{
+    m_frontFilter.Add(m_front.GetDistance());
+    return m_right.GetDistance();
+}
+
 float Sensors::GetLeftFilter()
 {
   m_leftFilter.Add(m_left.GetDistance());
@@ -41,6 +47,12 @@ float Sensors::GetRightFilter()
   return m_rightFilter.GetAverage();
 }
 
+float Sensors::GetFrontFilter()
+{
+    m_frontFilter.Add(m_front.GetDistance());
+    return m_frontFilter.GetAverage();
+}
+
 bool Sensors::FoundBall()
 {
   // Check if distance is certain range lower than normal
@@ -51,5 +63,5 @@ bool Sensors::FoundBall()
 
 bool Sensors::FoundBeacon()
 {
-  // Still unsure of how code works for this
+  return GetBeaconLuminosity() >= kGoalLuminosity;
 }
