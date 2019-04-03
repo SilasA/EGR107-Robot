@@ -16,4 +16,4 @@ public:
     float Add(float data);
 };
 
-#endif FILTER_H
+#endif // FILTER_H

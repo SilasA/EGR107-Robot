@@ -12,6 +12,7 @@
 // Sensors
 #define IR_LEFT A4
 #define IR_RIGHT A5
+#define IR_FRONT A2
 #define IR_BEACON A3
 #define SONAR_FRONT_TRIG 12
 #define SONAR_FRONT_ECHO 13
@@ -21,8 +22,8 @@
 #define ENC_RIGHT_B 4
 
 // Constants
-#define P 1.0
+#define P .07
 #define I 0.0
-#define D 0.0
+#define D 0.00
 
 #define COUNTS_PER_REV 

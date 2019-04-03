@@ -25,7 +25,7 @@ private:
   int m_leftPosition;
   int m_rightPosition;
 
-  void set_direction(int hb1, int hb2, int direction);
+  void set_direction(int hb1, int hb2, float direction);
   //float max(float a, float b);
 
 public:

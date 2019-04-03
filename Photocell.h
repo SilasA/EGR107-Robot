@@ -16,6 +16,6 @@ public:
   }
 
   int GetIntensity() { return 1023 - analogRead(m_pin); }
-}
+};
 
 #endif // PHOTOCELL_H

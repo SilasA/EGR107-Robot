@@ -18,8 +18,6 @@ private:
   Filter m_rightFilter;
   Filter m_frontFilter;
 
-  IR m_beaconLocator;
-
   NewPing m_ballSonar;
   Filter m_ballFilter;
 

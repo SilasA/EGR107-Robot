@@ -8,19 +8,20 @@ Turn::Turn(int dist)
 
 void Turn::Init()
 {
-  m_startTime = millis();
   Serial.println("Turning");
 }
 
 void Turn::Run()
 {
-  Command::driveTrain.Drive(-.2, .2);
+  Command::driveTrain.Drive(-.4, .4);
+
+  m_isObstacle = Command::driveTrain.IsStalled();
 }
 
 bool Turn::Finished()
 {
-  return abs(m_displacement - m_drive->GetLeftDistance()) < 10 ||
-      abs(-m_displacement - m_drive->GetRightDistance()) < 10;
+  return abs(m_displacement - m_drive->GetLeftDistance()) < 5 ||
+      abs(-m_displacement - m_drive->GetRightDistance()) < 5 || m_isObstacle;
 }
 
 void Turn::End()

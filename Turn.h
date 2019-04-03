@@ -9,6 +9,8 @@ private:
   DriveTrain *m_drive;
   float m_displacement;
 
+  bool m_isObstacle = false;
+
 public:
   Turn(int dist);
 
