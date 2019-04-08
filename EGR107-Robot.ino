@@ -25,19 +25,16 @@ void loop() {
   {
     Command::Push(new FollowWall(2500));
   }*/
-
-  if (millis() - time < 4000)
-    Command::driveTrain.ArcadeDrive(.75, 0.18);
-  else 
-    Command::driveTrain.ArcadeDrive(0, 0);
   //Serial.println(Command::front != nullptr);
-  /*Serial.print(Command::sensors.GetLeftFilter());
+  Serial.print(Command::sensors.GetLeftFilter());
   Serial.print("\t");
   Serial.print(Command::sensors.GetRightFilter());
   Serial.print("\t");
+  Serial.print(Command::sensors.GetFrontFilter());
+  Serial.print("\t");
   Serial.print(Command::driveTrain.GetLeftDistance());
   Serial.print("\t");
-  Serial.println(Command::driveTrain.GetRightDistance());*/
+  Serial.println(Command::driveTrain.GetRightDistance());
   //Serial.println("Hello World");
 
   //Command::RunScheduler();
