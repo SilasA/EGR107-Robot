@@ -18,7 +18,8 @@ DriveTrain::DriveTrain(const char *name,
   int lpin, int lhb1, int lhb2,
   int rpin, int rhb1, int rhb2,
   int leftEncA, int leftEncB,
-  int rightEncA, int rightEncB) :
+  int rightEncA, int rightEncB,
+  int sweeper) :
   m_leftEnc(leftEncA, leftEncB), m_rightEnc(rightEncA, rightEncB),
   Subsystem(name)
 {
@@ -28,6 +29,8 @@ DriveTrain::DriveTrain(const char *name,
   m_lhb2 = lhb2;
   m_rhb1 = rhb1;
   m_rhb2 = rhb2;
+
+  m_sweeper.attach(sweeper);
 
   // Pin setup
   pinMode(m_lpin, OUTPUT);
@@ -88,6 +91,11 @@ void DriveTrain::ArcadeDrive(float drive, float rotate)
   }
 
   Drive(loutput, routput);
+}
+
+void Sweep(float speed)
+{
+    m_sweeper.write(speed * 90 + 90);
 }
 
 int DriveTrain::GetLeftDistance()
