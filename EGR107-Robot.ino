@@ -26,6 +26,8 @@ void loop() {
     Command::Push(new FollowWall(2500));
   }*/
   //Serial.println(Command::front != nullptr);
+  Command::driveTrain.Sweep(.5);
+
   Serial.print(Command::sensors.GetLeftFilter());
   Serial.print("\t");
   Serial.print(Command::sensors.GetRightFilter());
