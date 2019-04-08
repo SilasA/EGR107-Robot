@@ -1,6 +1,6 @@
 #include "DriveTrain.h"
 
-void DriveTrain::set_direction(int hb1, int hb2, int direction)
+void DriveTrain::set_direction(int hb1, int hb2, float direction)
 {
   if (direction > 0) // Forwards
   {
@@ -72,7 +72,7 @@ void DriveTrain::ArcadeDrive(float drive, float rotate)
     }
     else
     {
-      loutput = -max(-drive, rotate);
+      loutput = max(drive, -rotate);
       routput = drive + rotate;
     }
   }
@@ -118,6 +118,6 @@ bool DriveTrain::IsStalled()
   m_leftPosition = m_leftEnc.read();
   m_rightPosition = m_rightEnc.read();
 
-  return m_leftOutput != 0.0 && leftd
-    || m_rightOutput != 0.0 && rightd;
+  return !(m_leftOutput != 0.0 && leftd
+    || m_rightOutput != 0.0 && rightd);
 }

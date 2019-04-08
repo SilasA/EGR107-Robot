@@ -1,25 +1,27 @@
 #include "Turn.h"
 
-Turn::Turn(float speed, long duration)
+Turn::Turn(int dist)
 {
-  m_speed = speed;
-  m_duration = duration;
+  m_displacement = dist;
+  m_drive = &Command::driveTrain;
 }
 
 void Turn::Init()
 {
-  m_startTime = millis();
   Serial.println("Turning");
 }
 
 void Turn::Run()
 {
-  Command::driveTrain.Drive(-m_speed / 2, m_speed / 2);
+  Command::driveTrain.Drive(-.4, .4);
+
+  m_isObstacle = Command::driveTrain.IsStalled();
 }
 
 bool Turn::Finished()
 {
-  return m_startTime + m_duration <= millis();
+  return abs(m_displacement - m_drive->GetLeftDistance()) < 5 ||
+      abs(-m_displacement - m_drive->GetRightDistance()) < 5 || m_isObstacle;
 }
 
 void Turn::End()

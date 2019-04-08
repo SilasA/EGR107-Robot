@@ -39,6 +39,10 @@ void PID::ResetIAccum()
 float PID::Run(float input, float setpoint)
 {
   float error = setpoint - input;
+
+  Serial.print(error);
+  Serial.print("\t");
+  
   unsigned long t = millis();
   unsigned long dt = t - m_lastT;
   m_lastT = t;
@@ -54,5 +58,9 @@ float PID::Run(float input, float setpoint)
   // D
   float d = m_kd * (error / dt);
 
-  return p + i - d;
+  float out = p + i - d;
+  if (out > m_maxOut) out = m_maxOut;
+  else if (out < m_minOut) out = m_minOut;
+
+  return out;
 }

@@ -1,4 +1,5 @@
 #include "Drive.h"
+#include "Turn.h"
 
 Drive::Drive(float value, float ramp, unsigned long duration, bool isDistance)
 {
@@ -19,25 +20,24 @@ void Drive::Init()
 
 void Drive::Run()
 {
-  float v = m_ramp; //(m_startTime + m_duration - 500 <= millis() ? m_ramp : -m_ramp);
-  Serial.println(v);
-  m_currentValue += v;
-  if (m_currentValue > m_value)
-    m_currentValue = m_value;
-  else if (m_currentValue < 0)
-    m_currentValue = 0;
-  Serial.println(m_currentValue);
-  Serial.flush();
-  Command::driveTrain.Drive(m_currentValue / 255.0, m_currentValue / 255.0);
+  Command::driveTrain.Drive(m_value / 255.0, m_value / 255.0);
+
+  m_isObstacle = Command::driveTrain.IsStalled();
 }
 
 bool Drive::Finished()
 {
-  return m_startTime + m_duration <= millis();
+  if (m_isDistance)
+    return m_startTime + m_duration <= millis() || m_isObstacle;
+  else
+    return m_startTime + m_duration <= millis();
 }
 
 void Drive::End()
 {
-  Command::driveTrain.Drive(0, 0);
+  //Command::driveTrain.Drive(0, 0);
+  Command::Push(new Drive(-175, -175, 1000, true));
+  Command::Push(new Turn(1000));
+  Command::Push(new Drive(150, 150, 5000, true));
   //Serial.println("End");
 }
