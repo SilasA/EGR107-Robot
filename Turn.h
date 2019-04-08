@@ -6,13 +6,13 @@
 class Turn : public Command
 {
 private:
-  float m_speed;
+  DriveTrain *m_drive;
+  float m_displacement;
 
-  long m_duration;
-  unsigned long m_startTime;
+  bool m_isObstacle = false;
 
 public:
-  Turn(float speed, long duration);
+  Turn(int dist);
 
   void Init();
   void Run();
