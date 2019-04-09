@@ -1,4 +1,5 @@
 #include "DriveTrain.h"
+#include "Constants.h"
 
 void DriveTrain::set_direction(int hb1, int hb2, float direction)
 {
@@ -30,8 +31,6 @@ DriveTrain::DriveTrain(const char *name,
   m_rhb1 = rhb1;
   m_rhb2 = rhb2;
 
-  m_sweeper.attach(sweeper);
-
   // Pin setup
   pinMode(m_lpin, OUTPUT);
   pinMode(m_lhb1, OUTPUT);
@@ -39,6 +38,11 @@ DriveTrain::DriveTrain(const char *name,
   pinMode(m_rpin, OUTPUT);
   pinMode(m_rhb1, OUTPUT);
   pinMode(m_rhb2, OUTPUT);
+}
+
+void DriveTrain::Init()
+{
+  m_sweeper.attach(SWEEPER_PIN);
 }
 
 /*float DriveTrain::max(float a, float b)
@@ -93,21 +97,27 @@ void DriveTrain::ArcadeDrive(float drive, float rotate)
   Drive(loutput, routput);
 }
 
-void Sweep(float speed)
+void DriveTrain::Sweep(float speed)
 {
-    m_sweeper.write(speed * 90 + 90);
+    m_sweeper.write(-speed * 90 + 90);
 }
 
-int DriveTrain::GetLeftDistance()
+void DriveTrain::ZeroEnc()
+{
+  m_leftEnc.write(0);
+  m_rightEnc.write(0);
+}
+
+int32_t DriveTrain::GetLeftDistance()
 {
   // Maybe convert to units
   return m_leftEnc.read();
 }
 
-int DriveTrain::GetRightDistance()
+int32_t DriveTrain::GetRightDistance()
 {
   // Maybe convert to units
-  return m_rightEnc.read();
+  return -m_rightEnc.read();
 }
 
 bool DriveTrain::IsStalled()

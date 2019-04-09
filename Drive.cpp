@@ -20,7 +20,8 @@ void Drive::Init()
 
 void Drive::Run()
 {
-  Command::driveTrain.Drive(m_value / 255.0, m_value / 255.0);
+  //Command::driveTrain.Drive(m_value / 255.0, m_value / 255.0);
+  Command::driveTrain.ArcadeDrive(m_value, 0);
 
   m_isObstacle = Command::driveTrain.IsStalled();
 }
@@ -35,9 +36,10 @@ bool Drive::Finished()
 
 void Drive::End()
 {
+  Command::driveTrain.Drive(0,0);
   //Command::driveTrain.Drive(0, 0);
-  Command::Push(new Drive(-175, -175, 1000, true));
-  Command::Push(new Turn(1000));
-  Command::Push(new Drive(150, 150, 5000, true));
+  //Command::Push(new Drive(-175, -175, 1000, true));
+  //Command::Push(new Turn(1000));
+  //Command::Push(new Drive(150, 150, 5000, true));
   //Serial.println("End");
 }

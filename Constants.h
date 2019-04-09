@@ -1,11 +1,11 @@
 // Motor pins
-#define LEFT_PIN 5
-#define LEFT_HB1 8
-#define LEFT_HB2 10
+#define LEFT_PIN 6
+#define LEFT_HB1 11
+#define LEFT_HB2 A0
 
-#define RIGHT_PIN 6
-#define RIGHT_HB1 11
-#define RIGHT_HB2 A0
+#define RIGHT_PIN 5
+#define RIGHT_HB1 8
+#define RIGHT_HB2 10
 
 #define SWEEPER_PIN 9
 
@@ -27,3 +27,4 @@
 #define D 0.00
 
 #define COUNTS_PER_REV 1500
+#define INCH_PER_REV 8.04

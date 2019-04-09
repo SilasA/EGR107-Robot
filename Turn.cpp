@@ -9,19 +9,30 @@ Turn::Turn(int dist)
 void Turn::Init()
 {
   Serial.println("Turning");
+  m_startTime = millis();
+
+  Command::driveTrain.ZeroEnc();
 }
 
 void Turn::Run()
 {
-  Command::driveTrain.Drive(-.4, .4);
+  if (m_displacement < 0)
+    Command::driveTrain.Drive(.5, -.4);
+  else
+    Command::driveTrain.Drive(-.40, .4);  
+  //Command::driveTrain.ArcadeDrive(0, m_displacement > 0 ? .35 : -.35);
 
   m_isObstacle = Command::driveTrain.IsStalled();
 }
 
 bool Turn::Finished()
 {
-  return abs(m_displacement - m_drive->GetLeftDistance()) < 5 ||
-      abs(-m_displacement - m_drive->GetRightDistance()) < 5 || m_isObstacle;
+  Serial.print(abs(m_displacement + m_drive->GetLeftDistance()));
+  Serial.print("\t");
+  Serial.print(abs(m_displacement + m_drive->GetRightDistance()));
+  Serial.print("\t");
+    return abs(m_displacement - m_drive->GetLeftDistance()) < 50 || (m_startTime + 500 <= millis() && m_isObstacle) ||
+      abs(m_displacement - m_drive->GetRightDistance()) < 50;
 }
 
 void Turn::End()
