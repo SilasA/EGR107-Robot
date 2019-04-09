@@ -14,7 +14,7 @@ void setup() {
   // put your setup code here, to run once:
   //Command::Push(new FollowWall(12, 7000));
   //Command::Push(new Drive(-100, -1, 1000, false));
-  Command::Push(new Turn(1755));
+  //Command::Push(new Turn(-1755));
   Serial.begin(9600);
   Serial.println("Starting");
 
@@ -30,7 +30,7 @@ void loop() {
     Command::Push(new FollowWall(2500));
   }*/
   //Serial.println(Command::front != nullptr);
-  //Command::driveTrain.Sweep(-.1);
+  Command::driveTrain.Sweep(0);
 
   Serial.print(Command::sensors.GetLeftFilter());
   Serial.print("\t");

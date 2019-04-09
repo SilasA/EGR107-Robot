@@ -16,6 +16,7 @@ void Drive::Init()
   m_currentValue = 0;
   m_startTime = millis();
   Serial.println(m_startTime);
+  Command::driveTrain.ZeroEnc();
 }
 
 void Drive::Run()
@@ -29,7 +30,9 @@ void Drive::Run()
 bool Drive::Finished()
 {
   if (m_isDistance)
-    return m_startTime + m_duration <= millis() || m_isObstacle;
+    return Command::driveTrain.GetLeftDistance() == m_duration ||
+      Command::driveTrain.GetRightDistance() == m_duration ||
+      (m_startTime + 500 <= millis() && m_isObstacle);
   else
     return m_startTime + m_duration <= millis();
 }
@@ -37,9 +40,4 @@ bool Drive::Finished()
 void Drive::End()
 {
   Command::driveTrain.Drive(0,0);
-  //Command::driveTrain.Drive(0, 0);
-  //Command::Push(new Drive(-175, -175, 1000, true));
-  //Command::Push(new Turn(1000));
-  //Command::Push(new Drive(150, 150, 5000, true));
-  //Serial.println("End");
 }
