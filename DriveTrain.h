@@ -16,6 +16,8 @@ private:
   int m_rhb1;
   int m_rhb2;
 
+  Servo m_sweeper;
+
   Encoder m_leftEnc;
   Encoder m_rightEnc;
 
@@ -32,10 +34,13 @@ public:
   DriveTrain(const char *name, int lpin, int lhb1, int lhb2,
             int rpin, int rhb1, int rhb2,
             int leftEncA, int leftEncB,
-            int rightEncA, int rightEncB);
+            int rightEncA, int rightEncB,
+            int sweeper);
 
   void Drive(float left, float right);
   void ArcadeDrive(float drive, float rotate);
+
+  void Sweep(float speed);
 
   int GetLeftDistance();
   int GetRightDistance();

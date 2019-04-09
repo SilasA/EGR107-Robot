@@ -26,4 +26,4 @@
 #define I 0.0
 #define D 0.00
 
-#define COUNTS_PER_REV 
+#define COUNTS_PER_REV 1500
