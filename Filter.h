@@ -14,6 +14,8 @@ public:
 
     float GetAverage();
     float Add(float data);
+
+    void GetDataInOrder(float *out, int *size);
 };
 
 #endif // FILTER_H

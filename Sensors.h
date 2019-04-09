@@ -37,9 +37,7 @@ public:
   float GetLeftFilter();
   float GetRightFilter();
   float GetFrontFilter();
-  int GetBeaconLuminosity();
   bool FoundBall();
-  bool FoundBeacon();
 };
 
 #endif // SENSORS_H

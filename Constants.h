@@ -28,3 +28,4 @@
 
 #define COUNTS_PER_REV 1500
 #define INCH_PER_REV 8.04
+#define INCH_PER_DEG 0.043638

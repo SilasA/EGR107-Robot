@@ -60,8 +60,3 @@ bool Sensors::FoundBall()
   float dist = m_ballSonar.convert_in(echoTime);
   return dist < kBallDistance + .75 && dist > kBallDistance - .75;
 }
-
-bool Sensors::FoundBeacon()
-{
-  return GetBeaconLuminosity() >= kGoalLuminosity;
-}
