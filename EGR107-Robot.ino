@@ -1,7 +1,9 @@
 #include "Command.h"
 #include "Constants.h"
+
 #include "FollowWall.h"
 #include "Drive.h"
+#include "Turn.h"
 
 long time = 0;
 
@@ -11,12 +13,14 @@ long time = 0;
 void setup() {
   // put your setup code here, to run once:
   //Command::Push(new FollowWall(12, 7000));
-  //Command::Push(new Drive(250, 250, 1000, false));
+  //Command::Push(new Drive(-100, -1, 1000, false));
+  Command::Push(new Turn(1755));
   Serial.begin(9600);
   Serial.println("Starting");
 
   time = millis();
-  
+
+  Command::driveTrain.Init(); 
 }
 
 void loop() {
@@ -26,7 +30,7 @@ void loop() {
     Command::Push(new FollowWall(2500));
   }*/
   //Serial.println(Command::front != nullptr);
-  Command::driveTrain.Sweep(.5);
+  //Command::driveTrain.Sweep(-.1);
 
   Serial.print(Command::sensors.GetLeftFilter());
   Serial.print("\t");
@@ -39,5 +43,5 @@ void loop() {
   Serial.println(Command::driveTrain.GetRightDistance());
   //Serial.println("Hello World");
 
-  //Command::RunScheduler();
+  Command::RunScheduler();
 }

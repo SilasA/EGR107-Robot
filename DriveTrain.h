@@ -37,13 +37,17 @@ public:
             int rightEncA, int rightEncB,
             int sweeper);
 
+   void Init();
+
   void Drive(float left, float right);
   void ArcadeDrive(float drive, float rotate);
 
   void Sweep(float speed);
 
-  int GetLeftDistance();
-  int GetRightDistance();
+  void ZeroEnc();
+
+  int32_t GetLeftDistance();
+  int32_t GetRightDistance();
 
   bool IsStalled();
 };

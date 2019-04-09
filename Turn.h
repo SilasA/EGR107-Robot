@@ -11,6 +11,8 @@ private:
 
   bool m_isObstacle = false;
 
+  long m_startTime;
+
 public:
   Turn(int dist);
 
