@@ -4,6 +4,8 @@
 #include "FollowWall.h"
 #include "Drive.h"
 #include "Turn.h"
+#include "SweepForward.h"
+#include "SweepBackwards.h"
 
 long time = 0;
 
@@ -12,6 +14,17 @@ long time = 0;
 
 void setup() {
   // put your setup code here, to run once:
+
+  Command::Push(new SweepForward());
+  Command::Push(new Drive(100, -1, 20, true));
+  Command::Push(new Turn(-45));
+  Command::Push(new Drive(100, -1, 6, true));
+  Command::Push(new Turn(-90));
+  Command::Push(new Drive(100, -1, 15, true));
+  Command::Push(new SweepBackwards());
+  Command::Push(new Drive(100, -1, -12, true));
+  Command::Push(new Drive(0, -1, 0, true));
+  
   //Command::Push(new FollowWall(12, 7000));
   //Command::Push(new Drive(-100, -1, 1000, false));
   //Command::Push(new Turn(-1755));

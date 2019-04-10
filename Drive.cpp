@@ -1,11 +1,11 @@
 #include "Drive.h"
 #include "Turn.h"
 
-Drive::Drive(float value, float ramp, unsigned long duration, bool isDistance)
+Drive::Drive(float value, float ramp, float duration, bool isDistance)
 {
   m_value = value;
   m_isDistance = isDistance;
-  m_duration = duration;
+  m_duration = inch_to_count(duration);
 
   if (ramp == -1) ramp = m_value;
   m_ramp = ramp;
@@ -30,8 +30,8 @@ void Drive::Run()
 bool Drive::Finished()
 {
   if (m_isDistance)
-    return Command::driveTrain.GetLeftDistance() == m_duration ||
-      Command::driveTrain.GetRightDistance() == m_duration ||
+    return abs(m_duration - Command::driveTrain.GetLeftDistance()) < 50 ||
+      abs(m_duration - Command::driveTrain.GetRightDistance()) < 50 ||
       (m_startTime + 500 <= millis() && m_isObstacle);
   else
     return m_startTime + m_duration <= millis();
@@ -39,5 +39,5 @@ bool Drive::Finished()
 
 void Drive::End()
 {
-  Command::driveTrain.Drive(0,0);
+  //Command::driveTrain.Drive(0,0);
 }

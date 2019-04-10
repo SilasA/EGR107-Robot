@@ -38,6 +38,7 @@ public:
   float GetRightFilter();
   float GetFrontFilter();
   bool FoundBall();
+  bool AtWall();
 };
 
 #endif // SENSORS_H

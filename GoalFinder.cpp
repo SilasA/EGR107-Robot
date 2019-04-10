@@ -1,7 +1,7 @@
 #include "GoalFinder.h"
 
 GoalFinder::GoalFinder() :
-  m_averager(10)
+  m_averager(6)
 {
 }
 
@@ -22,6 +22,6 @@ bool GoalFinder::FoundGoal()
   }
   else
   {
-    return data[0] - data[1] > 10;
+    return data[0] - data[1] > 15;
   }
 }
