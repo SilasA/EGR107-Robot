@@ -27,6 +27,11 @@ private:
   int m_leftPosition;
   int m_rightPosition;
 
+  float m_leftSpeed;
+  float m_rightSpeed;
+
+  bool m_stalled;
+
   void set_direction(int hb1, int hb2, float direction);
   //float max(float a, float b);
 
@@ -49,6 +54,7 @@ public:
   int32_t GetLeftDistance();
   int32_t GetRightDistance();
 
+  void CalcStalled();
   bool IsStalled();
 };
 

@@ -15,6 +15,7 @@ private:
   float m_currentValue;
 
   bool m_isObstacle;
+  bool m_frontWall;
 
 public:
   Drive(float value, float ramp, float duration, bool isDistance = false);

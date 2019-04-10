@@ -4,30 +4,28 @@
 #include "FollowWall.h"
 #include "Drive.h"
 #include "Turn.h"
-#include "SweepForward.h"
+#include "SweepForwards.h"
 #include "SweepBackwards.h"
 
 long time = 0;
-
 
 // ENCODERS Shotty when used above 100 speed
 
 void setup() {
   // put your setup code here, to run once:
 
-  Command::Push(new SweepForward());
-  Command::Push(new Drive(100, -1, 20, true));
-  Command::Push(new Turn(-45));
+  //Command::Push(new SweepForwards());
+  //Command::Push(new Turn(90));
+  Command::Push(new Drive(120, -1, 30, true));
+  //Command::Push(new FollowWall(12, 120));
+  /*Command::Push(new Turn(-45));
   Command::Push(new Drive(100, -1, 6, true));
   Command::Push(new Turn(-90));
   Command::Push(new Drive(100, -1, 15, true));
   Command::Push(new SweepBackwards());
   Command::Push(new Drive(100, -1, -12, true));
-  Command::Push(new Drive(0, -1, 0, true));
+  Command::Push(new Drive(0, -1, 0, true));*/
   
-  //Command::Push(new FollowWall(12, 7000));
-  //Command::Push(new Drive(-100, -1, 1000, false));
-  //Command::Push(new Turn(-1755));
   Serial.begin(9600);
   Serial.println("Starting");
 
@@ -38,12 +36,22 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  /*if (Command::front == nullptr)
+  Serial.println(Command::driveTrain.IsStalled());
+  if (Command::front == nullptr)
   {
-    Command::Push(new FollowWall(2500));
-  }*/
+    //Command::Push(new SweepForwards());
+    Command::Push(new Drive(120, -1, 50, true));
+    /*Command::Push(new Turn(-45));
+    Command::Push(new Drive(100, -1, 6, true));
+    Command::Push(new Turn(-90));
+    Command::Push(new Drive(100, -1, 15, true));
+    Command::Push(new SweepBackwards());
+    Command::Push(new Drive(100, -1, -12, true));
+    Command::Push(new Drive(0, -1, 0, true));*/
+  }
   //Serial.println(Command::front != nullptr);
-  Command::driveTrain.Sweep(0);
+  Command::driveTrain.Sweep(-.75);
+  //Command::driveTrain.ArcadeDrive(.5, 0);
 
   Serial.print(Command::sensors.GetLeftFilter());
   Serial.print("\t");
@@ -56,5 +64,6 @@ void loop() {
   Serial.println(Command::driveTrain.GetRightDistance());
   //Serial.println("Hello World");
 
+  Command::driveTrain.CalcStalled();
   Command::RunScheduler();
 }

@@ -2,7 +2,7 @@
 
 Turn::Turn(int dist)
 {
-  m_displacement = dist;
+  m_displacement = deg_to_count(dist);
   m_drive = &Command::driveTrain;
 }
 
@@ -17,9 +17,9 @@ void Turn::Init()
 void Turn::Run()
 {
   if (m_displacement < 0)
-    Command::driveTrain.Drive(.5, -.4);
+    Command::driveTrain.Drive(0, .5);
   else
-    Command::driveTrain.Drive(-.40, .4);
+    Command::driveTrain.Drive(.5, 0);
   //Command::driveTrain.ArcadeDrive(0, m_displacement > 0 ? .35 : -.35);
 
   m_isObstacle = Command::driveTrain.IsStalled();
@@ -27,13 +27,20 @@ void Turn::Run()
 
 bool Turn::Finished()
 {
-  Serial.print(abs(m_displacement + m_drive->GetLeftDistance()));
-  Serial.print("\t");
-  Serial.print(abs(m_displacement - m_drive->GetRightDistance()));
-  Serial.print("\t");
-    return abs(m_displacement + m_drive->GetLeftDistance()) < 50 ||
-     (m_startTime + 500 <= millis() && m_isObstacle) ||
-      abs(m_displacement - m_drive->GetRightDistance()) < 50;
+  int32_t error;
+  if (m_displacement < 0){
+    error = abs(m_displacement) - m_drive->GetRightDistance();
+    //Serial.print("R Error: ");
+    //Serial.println(error);
+  }
+  else 
+  {
+    error = abs(m_displacement) - m_drive->GetLeftDistance();
+    Serial.print("L Error: ");
+    Serial.println(error);
+  }
+    
+  return error < 0 || (m_startTime + 1000 <= millis() && m_isObstacle);
 }
 
 void Turn::End()

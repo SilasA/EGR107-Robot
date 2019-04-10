@@ -22,10 +22,10 @@
 #define ENC_RIGHT_B 4
 
 // Constants
-#define P .07
+#define P 1
 #define I 0.0
 #define D 0.00
 
 #define COUNTS_PER_REV 1500
 #define INCH_PER_REV 8.04
-#define INCH_PER_DEG 0.043638
+#define INCH_PER_DEG 0.1

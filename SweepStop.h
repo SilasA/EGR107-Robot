@@ -4,20 +4,20 @@
  * Description:
  ********************************************************************/
 
-#ifndef SWEEP_FORWARDS_H
-#define SWEEP_FORWARDS_H
+#ifndef SWEEP_STOP_H
+#define SWEEP_STOP_H
 
 #include "Command.h"
 
 // Turns the sweeper on intake
-class SweepForwards : public Command
+class SweepStop : public Command
 {
 public:
-  SweepForwards();
+  SweepStop();
   void Init();
   void Run();
   bool Finished();
   void End();
 };
 
-#endif // SWEEP_FORWARDS_H
+#endif // SWEEP_STOP_H

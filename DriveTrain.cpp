@@ -120,7 +120,7 @@ int32_t DriveTrain::GetRightDistance()
   return -m_rightEnc.read();
 }
 
-bool DriveTrain::IsStalled()
+void DriveTrain::CalcStalled()
 {
   int leftd = m_leftEnc.read() - m_leftPosition;
   int rightd = m_rightEnc.read() - m_rightPosition;
@@ -128,6 +128,11 @@ bool DriveTrain::IsStalled()
   m_leftPosition = m_leftEnc.read();
   m_rightPosition = m_rightEnc.read();
 
-  return !(m_leftOutput != 0.0 && leftd
+  m_stalled = !(m_leftOutput != 0.0 && leftd
     || m_rightOutput != 0.0 && rightd);
+}
+
+bool DriveTrain::IsStalled()
+{
+  return m_stalled;
 }

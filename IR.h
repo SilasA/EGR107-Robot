@@ -15,7 +15,7 @@ public:
     m_pin = pin;
   }
 
-  float GetDistance() { return 6787 / (analogRead(m_pin) - 3) - 4; }
+  float GetDistance() { return 6787.0 / (float)(analogRead(m_pin) - 3) - 4; }
 };
 
 #endif // IR_H

@@ -6,7 +6,7 @@ SweepForwards::SweepForwards() : Command()
 
 void SweepForwards::Init()
 {
-  Command::driveTrain.Sweep(-.2);
+  Command::driveTrain.Sweep(.2);
 }
 
 void SweepForwards::Run()

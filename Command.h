@@ -42,6 +42,17 @@ public:
   // Called when command is finished
   virtual void End();
 
+  // Utility functions
+  int32_t inch_to_count(float inches)
+  {
+    return inches / INCH_PER_REV * COUNTS_PER_REV;
+  }
+
+  int32_t deg_to_count(float deg)
+  {
+    return inch_to_count(deg * INCH_PER_DEG);
+  }
+
   // Static methods/members
 
   static DriveTrain driveTrain;

@@ -10,7 +10,7 @@
 #include "Command.h"
 
 // Turns the sweeper on intake
-class SweepBackwards : Command
+class SweepBackwards : public Command
 {
 public:
   SweepBackwards();

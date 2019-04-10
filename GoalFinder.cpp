@@ -1,4 +1,5 @@
 #include "GoalFinder.h"
+#include "Arduino.h"
 
 GoalFinder::GoalFinder() :
   m_averager(6)
@@ -22,6 +23,9 @@ bool GoalFinder::FoundGoal()
   }
   else
   {
+    Serial.print(data[0]);
+    Serial.print("\t");
+    Serial.println(data[1]);
     return data[0] - data[1] > 15;
   }
 }

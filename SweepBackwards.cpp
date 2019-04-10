@@ -6,7 +6,7 @@ SweepBackwards::SweepBackwards() : Command()
 
 void SweepBackwards::Init()
 {
-  Command::driveTrain.Sweep(.2);
+  Command::driveTrain.Sweep(-.2);
 }
 
 void SweepBackwards::Run()
