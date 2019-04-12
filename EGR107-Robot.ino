@@ -16,7 +16,7 @@ void setup() {
 
   //Command::Push(new SweepForwards());
   //Command::Push(new Turn(90));
-  Command::Push(new Drive(120, -1, 30, true));
+  Command::Push(new Drive(120, -1, 120, true));
   //Command::Push(new FollowWall(12, 120));
   /*Command::Push(new Turn(-45));
   Command::Push(new Drive(100, -1, 6, true));
@@ -50,7 +50,7 @@ void loop() {
     Command::Push(new Drive(0, -1, 0, true));*/
   }
   //Serial.println(Command::front != nullptr);
-  Command::driveTrain.Sweep(-.75);
+  Command::driveTrain.Sweep(-.4);
   //Command::driveTrain.ArcadeDrive(.5, 0);
 
   Serial.print(Command::sensors.GetLeftFilter());

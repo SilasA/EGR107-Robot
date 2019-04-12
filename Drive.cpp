@@ -44,14 +44,14 @@ bool Drive::Finished()
 
 void Drive::End()
 {
-  if (m_isObstacle)
+  if (m_isObstacle || m_frontWall)
   {
     Serial.println("Obstacle");
     //Command::Push(new SweepStop());
-    Command::Push(new Drive(120, -1, -9, true));
+    //Command::Push(new Drive(120, -1, -9, true));
     //Command::Push(new SweepForwards());
-    Command::Push(new Turn(60));
-    Command::Push(new Drive(120, -1, 30, true));
+    //Command::Push(new Turn(0));
+    //Command::Push(new Drive(120, -1, 30, true));
   }
   else if (m_frontWall)
   {
