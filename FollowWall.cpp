@@ -40,10 +40,10 @@ void FollowWall::Run()
     }
     Serial.print("Output PID: ");
     Serial.println(output);
-    
-  
+
+
   m_foundGoal = m_goalFinder.FoundGoal();
-  
+
     if (m_foundGoal && m_isLeftWall) //|| m_drive->IsStalled() && !m_isLeftWall)
     {
       Command::Push(new Turn(-90)); // Turn Left
@@ -56,7 +56,7 @@ void FollowWall::Run()
     m_frontWall = Command::sensors.AtWall();
 
     //m_drive->Drive(.4, -output);
-    
+
     m_drive->ArcadeDrive(.5, -output / 100.0);
     //Serial.println("Following");
 }
@@ -65,7 +65,7 @@ bool FollowWall::Finished()
 {
     float ld = m_drive->GetLeftDistance();
     float rd = m_drive->GetRightDistance();
-    return m_distance - ld < 0 || m_distance - rd < 0 || 
+    return m_distance - ld < 0 || m_distance - rd < 0 ||
       (m_startTime + 1000 <= millis() && m_drive->IsStalled()) ||
       m_frontWall || m_foundGoal;
 }
@@ -79,7 +79,7 @@ void FollowWall::End()
     Command::Push(new Drive(150, -1, -9, true));
     Command::Push(new Turn(-30));
     //Command::Push(new SweepForwards());
-    Command::Push(new FollowWall(12, 60));
+    Command::Push(new Drive(150, -1, 40, true));
   }
   else if (m_frontWall)
   {
@@ -99,7 +99,7 @@ void FollowWall::End()
     //Command::Push(new SweepBackwards());
     Command::Push(new Drive(100, -1, -14, true));
   }
-  
+
     //m_drive->Drive(0, 0);
     delete m_pid;
 }
