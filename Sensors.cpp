@@ -12,7 +12,7 @@ Sensors::Sensors(const char *name, int irLeft, int irRight, int irFront, int irB
                  int sonarTrig, int sonarEcho) :
                  Subsystem(name), m_left(irLeft), m_right(irRight), m_front(irFront),
                  m_photocell(irBeacon), m_ballSonar(sonarTrig, sonarEcho),
-                 m_ballFilter(5), m_frontFilter(10), m_leftFilter(10), m_rightFilter(10)
+                 m_ballFilter(5), m_frontFilter(5), m_leftFilter(5), m_rightFilter(5)
 {
 
 }

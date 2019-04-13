@@ -37,28 +37,28 @@ bool Drive::Finished()
   if (m_isDistance)
     return abs(m_duration - Command::driveTrain.GetLeftDistance()) < 50 ||
       abs(m_duration - Command::driveTrain.GetRightDistance()) < 50 ||
-      (m_startTime + 1000 <= millis() && m_isObstacle) || m_frontWall;
+      (m_startTime + 1000 <= millis() && m_isObstacle) || (m_frontWall && m_duration > 0) ;
   else
     return m_startTime + m_duration <= millis();
 }
 
 void Drive::End()
 {
-  if (m_isObstacle || m_frontWall)
+  if (m_isObstacle)
   {
     Serial.println("Obstacle");
-    //Command::Push(new SweepStop());
-    //Command::Push(new Drive(120, -1, -9, true));
-    //Command::Push(new SweepForwards());
-    //Command::Push(new Turn(0));
-    //Command::Push(new Drive(120, -1, 30, true));
+    Command::Push(new SweepStop());
+    Command::Push(new Drive(120, -1, -9, true));
+    Command::Push(new SweepForwards());
+    Command::Push(new Turn(0));
+    Command::Push(new Drive(120, -1, 30, true));
   }
   else if (m_frontWall)
   {
     Serial.println("Wall");
     Command::Push(new Drive(100, -1, -5, true));
     Command::Push(new Turn(90));
-    Command::Push(new FollowWall(12, 30));
+    Command::Push(new FollowWall(12, 60));
   }
   else
   {

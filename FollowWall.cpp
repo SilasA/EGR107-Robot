@@ -31,15 +31,19 @@ void FollowWall::Run()
     if (m_isLeftWall)
     {
         output = m_pid->Run(m_sensors->GetLeft(), m_space);
-        m_goalFinder.Process(m_sensors->GetLeftFilter());
+        m_goalFinder.Process(m_sensors->GetLeft());
+        Serial.print("PID L In: ");
+        Serial.println(m_sensors->GetLeft(), m_space);
     }
     else
     {
         output = m_pid->Run(m_sensors->GetRight(), m_space);
-        m_goalFinder.Process(m_sensors->GetRightFilter());
+        m_goalFinder.Process(m_sensors->GetRight());
+        Serial.print("PID R In: ");
+        Serial.println(m_sensors->GetLeft(), m_space);
     }
     Serial.print("Output PID: ");
-    Serial.println(output);
+    Serial.println((m_isLeftWall ? -output : output));
 
 
   m_foundGoal = m_goalFinder.FoundGoal();
@@ -55,9 +59,10 @@ void FollowWall::Run()
 
     m_frontWall = Command::sensors.AtWall();
 
-    //m_drive->Drive(.4, -output);
+    m_stalled = Command::driveTrain.IsStalled();
+    //m_drive->Drive(.4, output);
 
-    m_drive->ArcadeDrive(.5, -output / 100.0);
+    m_drive->ArcadeDrive(.75, (m_isLeftWall ? -output : output) / 200.0);
     //Serial.println("Following");
 }
 
@@ -66,13 +71,13 @@ bool FollowWall::Finished()
     float ld = m_drive->GetLeftDistance();
     float rd = m_drive->GetRightDistance();
     return m_distance - ld < 0 || m_distance - rd < 0 ||
-      (m_startTime + 1000 <= millis() && m_drive->IsStalled()) ||
+      (m_startTime + 1000 <= millis() && m_stalled) ||
       m_frontWall || m_foundGoal;
 }
 
 void FollowWall::End()
 {
-  if (m_drive->IsStalled())
+  if (m_stalled)
   {
     Serial.print("Stalled");
     //Command::Push(new SweepStop());
@@ -92,12 +97,14 @@ void FollowWall::End()
   else if (m_foundGoal)
   {
     Serial.print("Goal");
-    Command::Push(new Drive(100, -1, -4, true));
+    Command::Push(new Drive(100, -1, 8, true));
     if (m_isLeftWall)
-      Command::Push(new Turn(-90));
-    else Command::Push(new Turn(90));
-    //Command::Push(new SweepBackwards());
+      Command::Push(new Turn(270));
+    else Command::Push(new Turn(-270));
+    Command::Push(new SweepBackwards());
     Command::Push(new Drive(100, -1, -14, true));
+    Command::Push(new Turn(-180));
+    Command::Push(new Drive(120, -1, 50, true));
   }
 
     //m_drive->Drive(0, 0);

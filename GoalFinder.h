@@ -8,6 +8,9 @@ class GoalFinder
 private:
   Filter m_averager;
 
+  float m_last;
+  float m_curr;
+
 public:
   GoalFinder();
   void Process(float value);

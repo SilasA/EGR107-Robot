@@ -22,6 +22,7 @@ private:
     float m_lastDistanceFromWall;
 
     bool m_isLeftWall = false;
+    bool m_stalled = false;
     bool m_foundGoal = false;
     bool m_frontWall = false;
 

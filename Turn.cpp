@@ -17,9 +17,9 @@ void Turn::Init()
 void Turn::Run()
 {
   if (m_displacement < 0)
-    Command::driveTrain.Drive(0, .5);
+    Command::driveTrain.Drive(0, .75);
   else
-    Command::driveTrain.Drive(.5, 0);
+    Command::driveTrain.Drive(.75, 0);
   //Command::driveTrain.ArcadeDrive(0, m_displacement > 0 ? .35 : -.35);
 
   m_isObstacle = Command::driveTrain.IsStalled();
