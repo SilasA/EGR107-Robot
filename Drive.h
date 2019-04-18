@@ -14,8 +14,8 @@ private:
   unsigned long m_startTime;
   float m_currentValue;
 
-  bool m_isObstacle;
-  bool m_frontWall;
+  bool m_isObstacle = false;
+  bool m_frontWall = false;
 
 public:
   Drive(float value, float ramp, float duration, bool isDistance = false);

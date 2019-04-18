@@ -4,6 +4,7 @@
 #include "FollowWall.h"
 #include "Drive.h"
 #include "Turn.h"
+#include "Delay.h"
 #include "SweepForwards.h"
 #include "SweepBackwards.h"
 
@@ -16,15 +17,33 @@ void setup() {
 
   Command::Push(new SweepForwards());
   //Command::Push(new Turn(90));
-  Command::Push(new Drive(180, -1, 120, true));
+ // Command::Push(new Delay(3000));
   //Command::Push(new FollowWall(12, 300));
-  
+  Command::Push(new Drive(150, -1, 34, true));
+  Command::Push(new Turn(-90));
+  Command::Push(new Drive(180, -1, 13, true));
+  Command::Push(new SweepBackwards());
+  Command::Push(new Delay(1000));
+  Command::Push(new Drive(100, -1, -10, true));
+  Command::Push(new Turn(90));
+  Command::Push(new Turn(90));
+  Command::Push(new Drive(100, -1, 12, true));
+  Command::Push(new Turn(90));
+  Command::Push(new Turn(90));
+  Command::Push(new Turn(90));
+  Command::Push(new Drive(150, -1, 34, true));
+  Command::Push(new Turn(-90));
+  Command::Push(new Drive(180, -1, 13, true));
+  Command::Push(new SweepBackwards());
+  Command::Push(new Delay(1000));
+  Command::Push(new Drive(100, -1, -10, true));
+
   Serial.begin(9600);
   Serial.println("Starting");
 
   time = millis();
 
-  Command::driveTrain.Init(); 
+  Command::driveTrain.Init();
 }
 
 void loop() {
@@ -32,8 +51,8 @@ void loop() {
   Serial.println(Command::driveTrain.IsStalled());
   if (Command::front == nullptr)
   {
-    Command::Push(new SweepForwards());
-    Command::Push(new Drive(120, -1, 50, true));
+    //Command::Push(new SweepForwards());
+    //Command::Push(new Drive(120, -1, 50, true));
     /*Command::Push(new Turn(-45));
     Command::Push(new Drive(100, -1, 6, true));
     Command::Push(new Turn(-90));

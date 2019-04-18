@@ -63,5 +63,5 @@ bool Sensors::FoundBall()
 
 bool Sensors::AtWall()
 {
-  return m_frontFilter.GetAverage() < 20;
+  return m_frontFilter.GetAverage() < 25;
 }

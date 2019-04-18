@@ -60,6 +60,11 @@ void DriveTrain::Drive(float left, float right)
 
   analogWrite(m_lpin, left * 255);
   analogWrite(m_rpin, right * 255);
+
+  Serial.print("Drive L: ");
+  Serial.print(m_leftOutput);
+  Serial.print(" R: ");
+  Serial.println(m_rightOutput);
 }
 
 void DriveTrain::ArcadeDrive(float drive, float rotate)

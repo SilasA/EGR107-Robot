@@ -1,4 +1,5 @@
 #include "Turn.h"
+#include "Drive.h"
 
 Turn::Turn(int dist)
 {
@@ -17,9 +18,9 @@ void Turn::Init()
 void Turn::Run()
 {
   if (m_displacement < 0)
-    Command::driveTrain.Drive(0, .75);
+    Command::driveTrain.Drive(0, .4);
   else
-    Command::driveTrain.Drive(.75, 0);
+    Command::driveTrain.Drive(.4, 0);
   //Command::driveTrain.ArcadeDrive(0, m_displacement > 0 ? .35 : -.35);
 
   m_isObstacle = Command::driveTrain.IsStalled();
@@ -36,14 +37,19 @@ bool Turn::Finished()
   else 
   {
     error = abs(m_displacement) - m_drive->GetLeftDistance();
-    Serial.print("L Error: ");
-    Serial.println(error);
+    //Serial.print("L Error: ");
+    //Serial.println(error);
   }
     
-  return error < 0 || (m_startTime + 1000 <= millis() && m_isObstacle);
+  return m_startTime + 950 <= millis(); //error < 0 || (m_startTime + 1000 <= millis() && m_isObstacle);
 }
 
 void Turn::End()
 {
-  Command::driveTrain.Drive(0, 0);
+  if (m_isObstacle)
+  {
+    Command::Push(new Drive(1000, -1, -10, true));
+    Command::Push(new Drive(100, -1, 25, true));
+  }
+  //Command::driveTrain.Drive(0, 0);
 }

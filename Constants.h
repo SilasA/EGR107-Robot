@@ -22,7 +22,7 @@
 #define ENC_RIGHT_B 4
 
 // Constants
-#define P 15.0
+#define P 5.0
 #define I 0.0
 #define D 0.00
 
