@@ -1,5 +1,7 @@
 #include "GoalFinder.h"
 #include "Arduino.h"
+#include "Command.h"
+#include "Constants.h"
 
 GoalFinder::GoalFinder() :
   m_averager(4)
@@ -41,3 +43,9 @@ bool GoalFinder::FoundGoal()
   Serial.println(m_curr - m_last);
   return m_curr - m_last > 15;
 }
+
+bool GoalFinder::FoundGoalFront()
+{
+  return Command::sensors.GetFrontFilter() - Command::sensors.GetFrontTopFilter() > GOAL_DIFF &&
+    Command::sensors.GetFrontTopFilter() < 25;
+} 

@@ -15,6 +15,7 @@ public:
   GoalFinder();
   void Process(float value);
   bool FoundGoal();
+  bool FoundGoalFront();
 };
 
 #endif // GOAL_FINDER_H

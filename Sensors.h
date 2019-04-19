@@ -18,8 +18,8 @@ private:
   Filter m_rightFilter;
   Filter m_frontFilter;
 
-  NewPing m_ballSonar;
-  Filter m_ballFilter;
+  NewPing m_topGoalSonar;
+  Filter m_topGoalFilter;
 
   float get_average(float *array, int size);
 
@@ -34,10 +34,11 @@ public:
   float GetLeft();
   float GetRight();
   float GetFront();
+  float GetFrontTop();
   float GetLeftFilter();
   float GetRightFilter();
   float GetFrontFilter();
-  bool FoundBall();
+  float GetFrontTopFilter();
   bool AtWall();
 };
 

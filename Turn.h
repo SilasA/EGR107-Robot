@@ -14,7 +14,7 @@ private:
   long m_startTime;
 
 public:
-  Turn(int dist);
+  Turn(long dist);
 
   void Init();
   void Run();

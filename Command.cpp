@@ -15,6 +15,8 @@ Command::Command()
 DriveTrain Command::driveTrain = DriveTrain("Drive Train", LEFT_PIN, LEFT_HB1, LEFT_HB2, RIGHT_PIN, RIGHT_HB1, RIGHT_HB2, ENC_LEFT_A, ENC_LEFT_B, ENC_RIGHT_A, ENC_RIGHT_B, SWEEPER_PIN);
 Sensors Command::sensors = Sensors("Sensors", (int)IR_LEFT, (int)IR_RIGHT, (int)IR_FRONT, (int)IR_BEACON, SONAR_FRONT_TRIG, SONAR_FRONT_ECHO);
 
+int Command::commandsQueued = 0;
+
 void Command::Push(Command *cmd)
 {
   //Serial.println("Pushed");

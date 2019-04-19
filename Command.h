@@ -58,6 +58,8 @@ public:
   static DriveTrain driveTrain;
   static Sensors sensors;
 
+  static int commandsQueued;
+
   // Pushes a new command to the schedule
   static void Push(Command *cmd);
 

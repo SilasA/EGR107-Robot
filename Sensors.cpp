@@ -11,8 +11,8 @@ float get_average(float *array, int size)
 Sensors::Sensors(const char *name, int irLeft, int irRight, int irFront, int irBeacon,
                  int sonarTrig, int sonarEcho) :
                  Subsystem(name), m_left(irLeft), m_right(irRight), m_front(irFront),
-                 m_photocell(irBeacon), m_ballSonar(sonarTrig, sonarEcho),
-                 m_ballFilter(5), m_frontFilter(5), m_leftFilter(5), m_rightFilter(5)
+                 m_photocell(irBeacon), m_topGoalSonar(sonarTrig, sonarEcho),
+                 m_topGoalFilter(5), m_frontFilter(5), m_leftFilter(5), m_rightFilter(5)
 {
 
 }
@@ -35,6 +35,14 @@ float Sensors::GetFront()
     return m_right.GetDistance();
 }
 
+float Sensors::GetFrontTop()
+{
+  float d = m_topGoalSonar.ping_cm();
+  if (d == 0.0) return 150;
+  m_topGoalFilter.Add(d);
+  return d;
+}
+
 float Sensors::GetLeftFilter()
 {
   m_leftFilter.Add(m_left.GetDistance());
@@ -53,15 +61,15 @@ float Sensors::GetFrontFilter()
     return m_frontFilter.GetAverage();
 }
 
-bool Sensors::FoundBall()
+float Sensors::GetFrontTopFilter()
 {
-  // Check if distance is certain range lower than normal
-  long echoTime = m_ballSonar.ping_median(5);
-  float dist = m_ballSonar.convert_in(echoTime);
-  return dist < kBallDistance + .75 && dist > kBallDistance - .75;
+  float d = m_topGoalSonar.ping_cm();
+  if (d == 0.0) return 150;
+  m_topGoalFilter.Add(d);
+  return m_topGoalFilter.GetAverage();
 }
 
 bool Sensors::AtWall()
 {
-  return m_frontFilter.GetAverage() < 25;
+  return m_frontFilter.GetAverage() < 20 && m_topGoalFilter.GetAverage() < 20;
 }
